@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import{ MatButtonModule } from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatInputModule} from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -25,7 +26,8 @@ import { ContatoService } from './contato.service';
     MatToolbarModule,
     MatInputModule,
     HttpClientModule,
-
+    ReactiveFormsModule,
+    
     BrowserAnimationsModule
   ],
   providers: [

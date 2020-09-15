@@ -2,6 +2,8 @@ import { ContatoService } from './../contato.service';
 import { Component, OnInit } from '@angular/core';
 import { Contato } from './contato'
 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-contato',
   templateUrl: './contato.component.html',
@@ -9,19 +11,34 @@ import { Contato } from './contato'
 })
 export class ContatoComponent implements OnInit {
 
+  formulario: FormGroup;
+
   constructor(
-    private service : ContatoService
+    private service: ContatoService,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
-      const c : Contato = new Contato();
-      c.nome = "Raiane",
-      c.email = "raiane@gmail.com",
-      c.favorito = true,
-
-      this.service.save(c).subscribe(response => {
-        console.log(response)
-      })
+    this.formulario = this.fb.group({
+      nome: ['', Validators.required],
+      email: ['', [Validators.email, Validators.required]]
+    })
   }
 
+  submit(){
+    const erroNomeRequired = this.formulario.controls.nome.errors.required;
+    const erroEmailInvalid = this.formulario.controls.email.errors.email;
+    const erroEmailRequired = this.formulario.controls.email.errors.required;
+
+    console.log('erroNomeRequired', erroNomeRequired);
+    console.log('erroEmailInvalid', erroEmailInvalid);
+    console.log('erroEmailRequired', erroEmailRequired);
+
+    console.log(this.formulario.value)
+    const isValid = this.formulario.valid;
+    console.log('is valid', isValid);
+//    this.service.save(c).subscribe(reponse => {
+  //    console.log(reponse);
+    //})
+  }
 }

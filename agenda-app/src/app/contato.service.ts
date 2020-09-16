@@ -23,4 +23,8 @@ export class ContatoService {
   list() : Observable<Contato[]>{
     return this.http.get<any>(this.url)
   }
+
+  favorito(conta: Contato) : Observable<any>{
+    return this.http.patch(`${this.url}/${contato.id}/favorito`, null)
+  }
 }

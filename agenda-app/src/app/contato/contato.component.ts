@@ -32,7 +32,10 @@ export class ContatoComponent implements OnInit {
   }
 
   favoritar(contato: Contato){
-    contato.favorito = !contato.favorito
+    this.service.favorito(contato).subscribe(reponse => {
+      contato.favorito = !contato.favorito;
+    })
+
   }
 
   montarForm(){

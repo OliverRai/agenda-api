@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ContatoService } from './../contato.service';
 import { Component, OnInit } from '@angular/core';
 import { Contato } from './contato'
@@ -26,7 +27,8 @@ export class ContatoComponent implements OnInit {
   constructor(
     private service: ContatoService,
     private fb: FormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -59,8 +61,11 @@ export class ContatoComponent implements OnInit {
     const formValues = this.formulario.value;
     const contato: Contato = new Contato(formValues.nome, formValues.email);
     this.service.save(contato).subscribe(response => {
-      let lista: Contato[] = [...this.contatos, response];
-      this.contatos = lista;
+      this.listarContatos();
+      this.snackBar.open('Contato inserido', 'Sucesso!', {
+        duration: 2000
+      });
+      this.formulario.reset();
     })
   }
 
